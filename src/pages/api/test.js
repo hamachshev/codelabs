@@ -15,7 +15,7 @@ const data = JSON.parse(jsonData);
 
 console.log(data);
 
-  exec(data.testing.command + `stage_${stage}_`, (error, stdout, stderr) => {
+  exec(`cd ${data.name}` + data.testing.command + `stage_${stage}_`, (error, stdout, stderr) => {
     if (error) {
       console.error(`❌ Error: ${error.message}`);
       return;

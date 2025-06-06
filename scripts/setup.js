@@ -2,6 +2,7 @@ import prompts from 'prompts';
 import degit from 'degit';
 import path from 'path';
 import fs from 'fs'
+import { exec } from 'child_process';
 
 const languages = [
     {
@@ -179,22 +180,23 @@ const { name } = await prompts({
 });
 
 //this is for astro/starlight
-const emitter = degit("base starlight/astro template");
+const emitter = degit("https://github.com/hamachshev/codelabs");
 emitter.on('info', info => {
 	console.log(info.message);
 });
+const outerFileName = `codelab-${name}`;
+await emitter.clone(outerFileName);
 
-await emitter.clone(`/${name}`);
-
-const filePath = path.resolve('./codelab.config.json');
+const filePath = path.resolve(`./${outerFileName}/codelab.config.json`);
 const jsonData = fs.writeFileSync(filePath, JSON.stringify({
+    name,
     testing: {
         command: testingFramework.command
     }
 }, null, 2));
 
 function getInitCommand(lang, name) {
-    return lang.init.replace(/\$\{name\}/g, name);
+    return `cd ${outerFileName} && ${lang.init.replace(/\$\{name\}/g, name)}`;
 }
 
 exec(getInitCommand(lang, name), (error, stdout, stderr) => {

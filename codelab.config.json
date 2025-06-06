@@ -1,4 +1,5 @@
 {
+  "name":
   "testing": {
     "command": "cargo test ^"
   }
