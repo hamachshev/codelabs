@@ -1,5 +1,5 @@
 {
-    "testing":{
-        "command": "cargo test ^"
-    }
+  "testing": {
+    "command": "cargo test ^"
+  }
 }

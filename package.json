@@ -3,6 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "setup": "node scripts/setup.js",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -12,6 +13,11 @@
   "dependencies": {
     "@astrojs/starlight": "^0.34.3",
     "astro": "^5.6.1",
+    "js-yaml": "^4.1.0",
     "sharp": "^0.32.5"
+  },
+  "devDependencies": {
+    "degit": "^2.8.4",
+    "prompts": "^2.4.2"
   }
 }
