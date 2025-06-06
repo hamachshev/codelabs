@@ -1,0 +1,26 @@
+---
+import { LinkButton } from "@astrojs/starlight/components";
+const { href, endpoint, ...props } = Astro.props;
+---
+
+<LinkButton class="test-button" href={"#"} {...props}>
+  <slot />
+</LinkButton>
+
+<script define:vars={{ endpoint, href }}>
+  const buttons = document.querySelector(".test-button");
+
+  buttons.addEventListener("click", () => {
+    fetch(endpoint)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success === true) {
+          window.location.href = href;
+        }
+      })
+      .catch((err) => {
+        console.error("Fetch failed:", err);
+      });
+  });
+</script>
